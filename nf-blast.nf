@@ -124,14 +124,17 @@ process taxids_file2list {
 process extract_db_fasta {
     label 'blast'
     label 'sc_medium'
+    publishDir db_dir, mode: 'copy', overwrite: true
     input:
         val dbPrefix 
 
     output:
-        path "db.fasta" 
-
+        path "${basename}.fasta" 
+    script:
+        def basename = file(dbPrefix).baseName
+    shell:
     """
-    blastdbcmd -entry all -db ${dbPrefix} -out db.fasta
+    blastdbcmd -entry all -db ${dbPrefix} -out ${basename}.fasta
     """
 
 }
@@ -139,7 +142,7 @@ process extract_db_fasta {
 process download_tax_db {
     label 'download'
 
-    publishDir tax_db_dir, mode = 'copy' 
+    publishDir tax_db_dir, mode: 'copy', overwrite: true 
 
     output:
         path "*.dmp"
