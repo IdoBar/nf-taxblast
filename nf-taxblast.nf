@@ -73,13 +73,13 @@ def tax_db_dir = params.taxDbDir ?: db_dir
 // =~ /\d+\.*\w[bB]$/ ? MemoryUnit.of( "${params.chunkSize}.KB" ) : MemoryUnit.of( params.chunkSize )
 if (params.chunkSize instanceof String) {
     if (params.chunkSize.isNumber()) {
-        int chunk_size = params.chunkSize.toInteger()
+        def chunk_size = params.chunkSize.toInteger()
     } else if (params.chunkSize ==~ /\d+\.*\w[bB]$/) {
     (mem_value, mem_suffix) = (chunk_size =~ /(\d+)\.*(\w[bB])$/)[0]
     def chunk_size = mem_value + "." + mem_suffix.toUpperCase()
 } else {error("`${params.chunkSize}` is not a valid chunk size, please provide an integer (i.e. 200) or a file size (i.e. '200.KB')")}
 } else if (params.chunkSize instanceof Number) {
-    int chunk_size = params.chunkSize
+    def chunk_size = params.chunkSize
 }
 
 
