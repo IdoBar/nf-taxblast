@@ -54,8 +54,8 @@ To see the complete usage information, run `nextflow run <path-of-nf-taxblast>/n
 ```
 Usage:
       The typical command for running the pipeline is as follows:
-      nextflow run nf-blast.nf --app blastn --query QUERY.fasta --chunkSize 200 --db "path-of-db/db" -profile conda,blastn_tax
-      nextflow run nf-blast.nf --app "diamond blastp" --query QUERY.faa --chunkSize 5000 --db "path-of-db/db" -profile docker,diamond_tax
+      nextflow run nf-taxblast.nf --app blastn --query QUERY.fasta --chunkSize 200 --db "path-of-db/db" -profile conda,blastn_tax
+      nextflow run nf-taxblast.nf --app "diamond blastp" --query QUERY.faa --chunkSize 5000 --db "path-of-db/db" -profile docker,diamond_tax
 
       Mandatory arguments:
        --app <value>                  BLAST/DIAMOND program to use (diamond blastp/x must be quoted!)
@@ -77,7 +77,7 @@ Usage:
        --headers <false>              Include headers in the output table. Default: false
        --blastOpts <'-evalue 10'>     Additional options for BLAST command (must be quoted!). Default: ['-evalue 1e-10 -max_target_seqs 20']
        --dmndOpts <'-e 10e-10'>       Additional options for BLAST command (must be quoted!). Default: ['-e 1e-10 -k 20'] 
-       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. Default: [500]
+       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. Default: [250]
                                       This option can also take the size of each subquery (like 200.KB, 5.KB, etc.) 
        --queueSize <num>              Maximum number of jobs to be queued [50]
        --download <false>             Download database before running homology search. Default: false

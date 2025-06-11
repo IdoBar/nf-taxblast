@@ -12,8 +12,8 @@ def helpMessage() {
      log.info """
       Usage:
       The typical command for running the pipeline is as follows:
-      nextflow run nf-blast.nf --app blastn --query QUERY.fasta --chunkSize 200 --db "path-of-db/db" -profile conda,blastn_tax
-      nextflow run nf-blast.nf --app "diamond blastp" --query QUERY.faa --chunkSize 5000 --db "path-of-db/db" -profile docker,diamond_tax
+      nextflow run nf-taxblast.nf --app blastn --query QUERY.fasta --chunkSize 200 --db "path-of-db/db" -profile conda,blastn_tax
+      nextflow run nf-taxblast.nf --app "diamond blastp" --query QUERY.faa --chunkSize 5000 --db "path-of-db/db" -profile docker,diamond_tax
 
       Mandatory arguments:
        --app <value>                  BLAST/DIAMOND program to use (diamond blastp/x must be quoted!)
@@ -35,7 +35,7 @@ def helpMessage() {
        --headers <false>              Include headers in the output table. Default: false
        --blastOpts <'-evalue 10'>     Additional options for BLAST command (must be quoted!). Default: ['-evalue 1e-10 -max_target_seqs 20']
        --dmndOpts <'-e 10e-10'>       Additional options for BLAST command (must be quoted!). Default: ['-e 1e-10 -k 20'] 
-       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. Default: [500]
+       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. Default: [250]
                                       This option can also take the size of each subquery (like 200.KB, 5.KB, etc.) 
        --queueSize <num>              Maximum number of jobs to be queued [50]
        --download <false>             Download database before running homology search. Default: false
@@ -70,11 +70,19 @@ def db_prefix = db_dir.resolve("${db_basename}")
 def tax_db_dir = params.taxDbDir ?: db_dir
 // out_dir = "${params.outDir}/${params.app}"
 // Check if the chunks are provided as Memory units and if not assume KB
-def chunk_size = params.chunkSize // =~ /\d+\.*\w[bB]$/ ? MemoryUnit.of( "${params.chunkSize}.KB" ) : MemoryUnit.of( params.chunkSize )
-if (params.chunkSize ==~ /\d+\.*\w[bB]$/) {
+// =~ /\d+\.*\w[bB]$/ ? MemoryUnit.of( "${params.chunkSize}.KB" ) : MemoryUnit.of( params.chunkSize )
+if (params.chunkSize instanceof String) {
+    if (params.chunkSize.isNumber()) {
+        int chunk_size = params.chunkSize.toInteger()
+    } else if (params.chunkSize ==~ /\d+\.*\w[bB]$/) {
     (mem_value, mem_suffix) = (chunk_size =~ /(\d+)\.*(\w[bB])$/)[0]
-    chunk_size = mem_value + "." + mem_suffix.toUpperCase()
+    def chunk_size = mem_value + "." + mem_suffix.toUpperCase()
+} else {error("`${params.chunkSize}` is not a valid chunk size, please provide an integer (i.e. 200) or a file size (i.e. '200.KB')")}
+} else if (params.chunkSize instanceof Number) {
+    int chunk_size = params.chunkSize
 }
+
+
 
 // Format output filename with as "query"
 // def output_fmt = params.outfmtString =~ /(\d+) (.+)/ 
