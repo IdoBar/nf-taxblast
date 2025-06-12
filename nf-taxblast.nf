@@ -33,17 +33,21 @@ def helpMessage() {
        --outDir <path>                Output folder for the results. Default: [results]
        --outCols <'std'>              Output columns (must be quoted!). Default: ['std']
        --headers <false>              Include headers in the output table. Default: false
-       --blastOpts <'-evalue 10'>     Additional options for BLAST command (must be quoted!). Default: ['-evalue 1e-10 -max_target_seqs 20']
-       --dmndOpts <'-e 10e-10'>       Additional options for BLAST command (must be quoted!). Default: ['-e 1e-10 -k 20'] 
-       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. Default: [250]
+       --blastOpts <'-evalue 10'>     Additional options for BLAST command (must be quoted!). 
+                                      Default: ['-evalue 1e-10 -max_target_seqs 20']
+       --dmndOpts <'-e 10e-10'>       Additional options for BLAST command (must be quoted!). 
+                                      Default: ['-e 1e-10 -k 20'] 
+       --chunkSize <num>              Number of fasta records to use in each job when splitting the query fasta file. 
                                       This option can also take the size of each subquery (like 200.KB, 5.KB, etc.) 
+                                      Default: [250]
        --queueSize <num>              Maximum number of jobs to be queued [50]
        --download <false>             Download database before running homology search. Default: false
 
        Taxonomy options:
-       --taxDbDir <path-of-taxdb/db>  Location of taxonomy db files (prot.accession2taxid.FULL.gz, nodes.dmp and names.dmp) to allow DIAMOND 
-                                      to return taxonomic information columns. If the required files cannot be found in the path 
-                                      they will be automatically downloaded from the NCBI.
+       --taxDbDir <path-of-taxdb/db>  Location of taxonomy db files (prot.accession2taxid.FULL.gz, nodes.dmp and names.dmp) 
+                                      to allow DIAMOND return taxonomic information columns. 
+                                      If the required files cannot be found in the path they will be automatically downloaded 
+                                      from the NCBI.
                                       Information about the required files and where to download them can be found at 
                                       https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options
                                       Default: [same path as the database]
@@ -316,7 +320,7 @@ workflow {
     }
     else {
         Channel.fromPath(params.query)
-                .splitFasta(by: chunk_sizetoInteger(), file: true)
+                .splitFasta(by: chunk_size.toInteger(), file: true)
                 .set { ch_fasta }
     }
     
