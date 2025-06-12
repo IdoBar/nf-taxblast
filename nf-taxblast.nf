@@ -71,6 +71,7 @@ def tax_db_dir = params.taxDbDir ?: db_dir
 // out_dir = "${params.outDir}/${params.app}"
 // Check if the chunks are provided as Memory units and if not assume KB
 // =~ /\d+\.*\w[bB]$/ ? MemoryUnit.of( "${params.chunkSize}.KB" ) : MemoryUnit.of( params.chunkSize )
+def chunk_size = params.chunkSize
 if (params.chunkSize instanceof String) {
     if (params.chunkSize.isNumber()) {
         def chunk_size = params.chunkSize.toInteger()
@@ -140,7 +141,9 @@ process taxids_file2list {
 process extract_db_fasta {
     label 'blast'
     label 'sc_medium'
-   // publishDir db_dir, mode: 'copy', overwrite: true
+    
+    publishDir db_dir, mode: 'copy', overwrite: true
+    
     input:
         val dbPrefix 
 
@@ -349,7 +352,7 @@ workflow {
                 db_fasta_ch = file("${db_prefix}.fasta").isEmpty() ? extract_db_fasta(db_prefix) : Channel.fromPath("${db_prefix}.fasta")
                 diamond_prep_tax_db(db_prefix, db_fasta_ch, acc2taxid, names_dmp, nodes_dmp)
             }
-            dmnd_db = "${db_prefix}.dmnd"
+            dmnd_db = Channel.fromPath("${db_prefix}.dmnd")
         } 
         else if (!file("${db_prefix}.acc").exists()) {
             diamond_prep_blast_db(db_prefix)
