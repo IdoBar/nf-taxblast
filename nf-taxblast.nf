@@ -316,7 +316,7 @@ workflow {
     }
     else {
         Channel.fromPath(params.query)
-                .splitFasta(by: chunk_size, file: true)
+                .splitFasta(by: chunk_sizetoInteger(), file: true)
                 .set { ch_fasta }
     }
     
