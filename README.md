@@ -187,19 +187,30 @@ If you would like to contribute to this pipeline, please contact me, [raise an I
 
 ## Citations
 
-Tools used in the pipeline: 
+
+
+If you use this tool, please use the following citation:  
+
+[![DOI](https://zenodo.org/badge/846960572.svg)](https://doi.org/10.5281/zenodo.15683598)  
+Bar, I. IdoBar/nf-taxblast: v0.5.1. Zenodo. (2025). [10.5281/zenodo.1568359](https://doi.org/10.5281/zenodo.15683599)
+<!-- Bar, I. (2025). nf-taxblast (Version 0.5.1) [Computer software]. https://github.com/IdoBar/nf-taxblast -->
+<!-- Ido Bar. (2025). IdoBar/nf-taxblast: v0.5.1 (v0.5.1). Zenodo. https://doi.org/10.5281/zenodo.15683599 -->
+
+
+
+#### Tools used in the workflow: 
 
 1. Buchfink, B., Xie, C. & Huson, D. H. Fast and sensitive protein alignment using DIAMOND. Nat Meth 12, 59–60 (2015). [10.1038/nmeth.3176](https://doi.org/10.1038/nmeth.3176)  
 2. Camacho, C. et al. BLAST+: architecture and applications. BMC Bioinformatics 10, 421 (2009). [10.1186/1471-2105-10-421](https://doi.org/10.1186/1471-2105-10-421)  
 3. Camacho, C. et al. BLAST® Command Line Applications User Manual. (National Center for Biotechnology Information (US), Bethesda, MD, USA, 2013). [link](http://www.ncbi.nlm.nih.gov/books/NBK1763/)  
 
 
-Nextflow publications:
+#### Nextflow publications:
 
 4. Langer, B. E. et al. Empowering bioinformatics communities with Nextflow and nf-core. bioRxiv Preprint (2024). [10.1101/2024.05.10.592912](https://doi.org/10.1101/2024.05.10.592912) 
 5. Di Tommaso, P. et al. Nextflow enables reproducible computational workflows. Nature Biotechnology 35, 316–319 (2017). [10.1038/nbt.3820](https://doi.org/10.1038/nbt.3820)
 
-Additional reading on similar alternatives and performance comparison:
+#### Additional reading on similar alternatives and performance comparison:
 
 6. Yim, W. C. & Cushman, J. C. Divide and Conquer (DC) BLAST: fast and easy BLAST execution within HPC environments. PeerJ 5, (2017).[10.7717/peerj.3486](https://doi.org/10.7717/peerj.3486)
 7. Hernández-Salmerón, J. E. & Moreno-Hagelsieb, G. Progress in quickly finding orthologs as reciprocal best hits: comparing blast, last, diamond and MMseqs2. BMC Genomics 21, 741 (2020). [10.1186/s12864-020-07132-6](https://doi.org/10.1186/s12864-020-07132-6) 
