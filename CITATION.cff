@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: nf-taxblast
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Ido
+    family-names: Bar
+    email: i.bar@griffith.edu.au
+    affiliation: 'School of Environment and Science, Griffith University'
+    orcid: 'https://orcid.org/0000-0002-2004-4233'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.15683598
+    description: 'Link to release v0.5.1 '
+repository-code: 'https://github.com/IdoBar/nf-taxblast'
+abstract: >-
+  A Nextflow workflow for scalable distributed
+  taxonomy-enabled NCBI Blast and Diamond homology searches 
+keywords:
+  - nextflow
+  - blast
+  - diamond
+  - homology-search
+license: Apache-2.0
+version: 0.5.1
+date-released: '2025-06-18'
